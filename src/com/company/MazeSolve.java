@@ -128,40 +128,42 @@ public class MazeSolve {
         int x = path.peek().x;
         int y = path.peek().y;
         // Limit exploring method to rooms inside the extreme edges of the maze
-        if (x == 0 || y == 0 || x == rooms.length - 1
-                || y == rooms[0].length - 1) {
-            return path;
+
+        while (!(x == 0 || y == 0 || x == rooms.length - 1
+                || y == rooms[0].length - 1)) {
+            // The following five blocks of code navigate a maze by setting every
+            // room explored to not visitable
+            if (rooms[x + 1][y].isVisitable) {  // Go East if visitable
+                moves++;
+                path.push(rooms[x + 1][y]);
+                rooms[x + 1][y].isVisitable = false;
+                //return explore(path, rooms);
+            } else if (rooms[x][y + 1].isVisitable) {  // Go South if visitable
+                moves++;
+                path.push(rooms[x][y + 1]);
+                rooms[x][y + 1].isVisitable = false;
+                //return explore(path, rooms);
+            } else if (rooms[x][y - 1].isVisitable) {  // Go North if visitable
+                moves++;
+                path.push(rooms[x][y - 1]);
+                rooms[x][y - 1].isVisitable = false;
+                //return explore(path, rooms);
+            } else if (rooms[x - 1][y].isVisitable) {  // Go West if visitable
+                moves++;
+                path.push(rooms[x - 1][y]);
+                rooms[x - 1][y].isVisitable = false;
+                //return explore(path, rooms);
+            } else {
+                // Take the last room visited off of the stack and recall explore()
+                path.pop();
+                //return explore(path, rooms);
+            }
+
+
+            x = path.peek().x;
+            y = path.peek().y;
         }
-        // The following five blocks of code navigate a maze by setting every
-        // room explored to not visitable
-        if (rooms[x + 1][y].isVisitable) {  // Go East if visitable
-            moves++;
-            path.push(rooms[x + 1][y]);
-            rooms[x + 1][y].isVisitable = false;
-            return explore(path, rooms);
-        }
-        if (rooms[x][y + 1].isVisitable) {  // Go South if visitable
-            moves++;
-            path.push(rooms[x][y + 1]);
-            rooms[x][y + 1].isVisitable = false;
-            return explore(path, rooms);
-        }
-        if (rooms[x][y - 1].isVisitable) {  // Go North if visitable
-            moves++;
-            path.push(rooms[x][y - 1]);
-            rooms[x][y - 1].isVisitable = false;
-            return explore(path, rooms);
-        }
-        if (rooms[x - 1][y].isVisitable) {  // Go West if visitable
-            moves++;
-            path.push(rooms[x - 1][y]);
-            rooms[x - 1][y].isVisitable = false;
-            return explore(path, rooms);
-        } else {
-            // Take the last room visited off of the stack and recall explore()
-            path.pop();
-            return explore(path, rooms);
-        }
+        return path;
     }
 
     /**
@@ -181,7 +183,7 @@ public class MazeSolve {
             for (int j = 0; j < rooms[0].length; ++j) {
                 if (rooms[i][j].isPartOfPath) {
                     // The '+' sign for visited rooms on a successful path
-                    System.out.print('+');
+                    System.out.print('.');
                 } else { // Print all other rooms and walls of the maze
                     System.out.print(rooms[i][j].ch);
                 }
