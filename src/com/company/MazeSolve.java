@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.EmptyStackException;
 import java.util.Scanner;
 import java.util.Stack;
-//Created by Shae Cloud 2/27/19
+//Created by Shae Cloud 2/27/19 
 
 /**
  * The MazeSolve class is designed to solve specifically formatted mazes.
