@@ -9,7 +9,7 @@ public class PaintMaze {
     public static class MPanel extends JPanel {
         /**
          * The 'rooms' array is a
-         * 2D array of type room is used for
+         * 2D array of type room used for
          * the subdivision of rows and columns
          */
         Room[][] rooms;
